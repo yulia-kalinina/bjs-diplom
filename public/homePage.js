@@ -4,15 +4,15 @@ const logout = new LogoutButton();
 
 logout.action = (func) => {
   ApiConnector.logout((response) => {
-    if (response) {
+    if (response.success === true) {
       location.reload();
     }
   });
 };
 
-ApiConnector.current((responce) => {
-  if (responce) {
-    ProfileWidget.showProfile(responce.data);
+ApiConnector.current((response) => {
+  if (response.success === true) {
+    ProfileWidget.showProfile(response.data);
   }
 });
 
@@ -20,7 +20,7 @@ const ratesBoard = new RatesBoard();
 
 function getStocks() {
   ApiConnector.getStocks((response) => {
-    if (response) {
+    if (response.success === true) {
       ratesBoard.clearTable();
       ratesBoard.fillTable(response.data);
     }
@@ -35,7 +35,7 @@ const moneyManager = new MoneyManager();
 
 moneyManager.addMoneyCallback = (data) => {
   ApiConnector.addMoney(data, (response) => {
-    if (response) {
+    if (response.success === true) {
       ProfileWidget.showProfile(response.data);
       moneyManager.setMessage(true, "Баланс успешно пополнен");
     } else {
@@ -46,7 +46,7 @@ moneyManager.addMoneyCallback = (data) => {
 
 moneyManager.conversionMoneyCallback = (data) => {
   ApiConnector.convertMoney(data, (response) => {
-    if (response) {
+    if (response.success === true) {
       ProfileWidget.showProfile(response.data);
       moneyManager.setMessage(true, "Баланс успешно конвертирован");
     } else {
@@ -57,9 +57,9 @@ moneyManager.conversionMoneyCallback = (data) => {
 
 moneyManager.sendMoneyCallback = (data) => {
   ApiConnector.transferMoney(data, (response) => {
-    if (response) {
+    if (response.success === true) {
       ProfileWidget.showProfile(response.data);
-      moneyManager.setMessage(true, "Сумма успешно переведена");
+      moneyManager.setMessage(true, "Перевод выполнен успешно");
     } else {
       moneyManager.setMessage(false, "Ошибка перевода средств");
     }
@@ -69,7 +69,7 @@ moneyManager.sendMoneyCallback = (data) => {
 const favoriteWidget = new FavoritesWidget();
 
 ApiConnector.getFavorites((response) => {
-  if (response.data) {
+  if (response.success === true) {
     favoriteWidget.clearTable();
     favoriteWidget.fillTable(response.data);
     moneyManager.updateUsersList(response.data);
@@ -78,7 +78,7 @@ ApiConnector.getFavorites((response) => {
 
 favoriteWidget.addUserCallback = (data) => {
   ApiConnector.addUserToFavorites(data, (response) => {
-    if (response) {
+    if (response.success === true) {
       favoriteWidget.clearTable();
       favoriteWidget.fillTable(response.data);
       moneyManager.updateUsersList(response.data);
@@ -94,7 +94,7 @@ favoriteWidget.addUserCallback = (data) => {
 
 favoriteWidget.removeUserCallback = (data) => {
   ApiConnector.removeUserFromFavorites(data, (callback) => {
-    if (response) {
+    if (response.success === true) {
       favoriteWidget.clearTable();
       favoriteWidget.fillTable(response.data);
       moneyManager.updateUsersList(response.data);
