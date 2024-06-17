@@ -39,7 +39,7 @@ moneyManager.addMoneyCallback = (data) => {
       ProfileWidget.showProfile(response.data);
       moneyManager.setMessage(true, "Баланс успешно пополнен");
     } else {
-      moneyManager.setMessage(false, "Ошибка пополнения баланса");
+      moneyManager.setMessage(false, response.error);
     }
   });
 };
@@ -50,7 +50,7 @@ moneyManager.conversionMoneyCallback = (data) => {
       ProfileWidget.showProfile(response.data);
       moneyManager.setMessage(true, "Баланс успешно конвертирован");
     } else {
-      moneyManager.setMessage(false, "Ошибка конвертации баланса");
+      moneyManager.setMessage(false, response.error);
     }
   });
 };
@@ -61,7 +61,7 @@ moneyManager.sendMoneyCallback = (data) => {
       ProfileWidget.showProfile(response.data);
       moneyManager.setMessage(true, "Перевод выполнен успешно");
     } else {
-      moneyManager.setMessage(false, "Ошибка перевода средств");
+      moneyManager.setMessage(false, response.error);
     }
   });
 };
@@ -87,7 +87,7 @@ favoriteWidget.addUserCallback = (data) => {
         "Пользователь добавлен в список избранных"
       );
     } else {
-      favoriteWidget.setMessage(false, "Ошибка добавления пользователя");
+      favoriteWidget.setMessage(false, response.error);
     }
   });
 };
@@ -103,7 +103,7 @@ favoriteWidget.removeUserCallback = (data) => {
         "Пользователь удален из списка избранных"
       );
     } else {
-      favoriteWidget.setMessage(false, "Ошибка удаления пользователя");
+      favoriteWidget.setMessage(false, response.error);
     }
   });
 };
